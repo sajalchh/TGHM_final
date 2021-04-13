@@ -14,19 +14,22 @@ export class Order{
     Order_Status:Array<string> = [];
     private __agent: Array<number> = [];
     private __seatNumber: string;
-    private __train: Train;
-    private __deliveryStation: Station|null;
+    private __train: number;
+    private __deliveryStation: number|null;
     private __selectedItems : Array<Item> = [];
     private __Restaurants = new Set<Restaurant>();
     __OrderTime : Time;
     orderId;
-    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:Train, delivery_station:Station|null = null){
+    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:number, delivery_station:number|null = null){
         this.__customer=customer;
         customer.addOrder(this);
         this.__seatNumber=seat_Number;
         this.__train=train;
         this.__deliveryStation=delivery_station;
         this.__selectedItems=items;
+        for(let i in items){
+            this.Order_Status.push(OrderStatus[0]);
+        }
         this.__OrderTime = Time.getCurrentTime();
         this.orderId = Order.unique++;
         customer.addOrder(this);
@@ -37,7 +40,7 @@ export class Order{
         }
     }
 
-    setDeliveryStation(station : Station){
+    setDeliveryStation(station : number){
         this.__deliveryStation = station;
     }
 
@@ -170,6 +173,17 @@ export class Order{
     //    }
     //    return Array.from(list);
     //}
+    static readOrder(order : Order,customer : Customer){
+        let x = new Order(customer,0,new Array<Item>(),order["__seatNumber"],order["__train"]);
+        for(let i of order["__selectedItems"])
+            x.addItem(Object.setPrototypeOf(i, Item.prototype));
+            x.__OrderTime = Object.setPrototypeOf(order["__OrderTime"], Time.prototype);
+            x.Order_Status = order["Order_Status"];
+            x.__agent = order["__agent"];
+            x.orderId = order["orderId"];
+            x.__deliveryStation = order["__deliveryStation"];  
+            Customer.unique = Math.max(Customer.unique,order["orderId"]+1);
+    }
 
 }
 // var c= new Customer("a","B","C","d");

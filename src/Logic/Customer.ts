@@ -18,9 +18,6 @@ export class Customer extends Account{
         Management.Customers.set(this.getID(),(this));
         Management.CustomersForStoring.push(this);
     }
-    // static converfrmObj(obj:Object) {
-    //     let c: Customer = new Customer(obj._name, obj._password, obj._phoneNo);
-    // }
     addOrder(Order:Order) : void{
         this.__Orders.push(Order);
     }
@@ -63,5 +60,14 @@ export class Customer extends Account{
     }
     getOrderList() : Array<Order>{
         return this.__Orders;
+    }
+    static ReadCustomer(customer : Customer){
+        let x = new Customer(customer["_name"],customer["_username"],customer["_password"],customer["__phoneNumber"]);
+        x.__Train = customer["__Train"];
+        x.__seatNO = customer["__seatNO"];
+        x.__allotedAgent = customer["__allotedAgent"];
+        x._ID = customer["_ID"];
+        for(let i of x.__Orders)
+            Order.readOrder(i,x);
     }
 }

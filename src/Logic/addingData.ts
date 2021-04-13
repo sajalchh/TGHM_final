@@ -130,7 +130,7 @@ export function AddData() {
 
     console.log(r1);
 
-    let order1 = new Order(c1,0,r1.Menu.getMenuItems(),"1",t1,null);
+    let order1 = new Order(c1,0,r1.Menu.getMenuItems(),"1",t1.getID(),null);
     order1.updateOrderStatus(1);
     // Database.writeState();
 }

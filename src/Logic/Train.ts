@@ -33,4 +33,12 @@ export class Train{
     getID(){
         return this.__Id;
     }
+    static readTrain(train : Train){
+        let x = new Train(train["Name"], train["TrainNo"],new Map<string, Time>(), new Map<string, number>());
+        let i = 0;
+        x.__Id = train["__Id"];
+        for(let k of Object.keys( train["routeTime"])){
+            x.addStation(Management.stationList.get(train["routeStation"].get(k)!)!,Object.setPrototypeOf(train["routeTime"].get(k), Time.prototype));
+        }
+    }
 }
