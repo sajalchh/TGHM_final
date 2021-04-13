@@ -45,14 +45,14 @@ export function AddData() {
     t2.addStation(s6, new Time(10, 5));
     t2.addStation(s7, new Time(22, 10));
 
-    let r1 = new Restaurant("sajal dhaba", "dhaba", "123");
-    let r2 = new Restaurant("club mahindra", "mahindra", "123");
-    let r3 = new Restaurant("dominos", "domi", "123");
-    let r4 = new Restaurant("foodbuz", "food", "123");
-    let r5 = new Restaurant("swastam", "swami", "123");
-    let r6 = new Restaurant("Mio Amore", "mio_me", "123");
-    let r7 = new Restaurant("Arabian Nights", "nights", "123");
-    let r8 = new Restaurant("KFC", "kfc", "123");
+    let r1 = new Restaurant("sajal dhaba", "dhaba", "123",s1);
+    let r2 = new Restaurant("club mahindra", "mahindra", "123",s2);
+    let r3 = new Restaurant("dominos", "domi", "123",s3);
+    let r4 = new Restaurant("foodbuz", "food", "123",s4);
+    let r5 = new Restaurant("swastam", "swami", "123",s5);
+    let r6 = new Restaurant("Mio Amore", "mio_me", "123",s6);
+    let r7 = new Restaurant("Arabian Nights", "nights", "123",s7);
+    let r8 = new Restaurant("KFC", "kfc", "123",s8);
 
     m.updateRestarantStatus(r1, 1);
     m.updateRestarantStatus(r2, 1);
@@ -71,7 +71,7 @@ export function AddData() {
     let a6 = new Agent("shamu", "shamu", "123", r6);
     let a7 = new Agent("lalit", "lalu", "123", r7);
 
-    r1.addStation(s1, new Time(0, 30));
+    /*r1.addStation(s1, new Time(0, 30));
     r2.addStation(s2, new Time(0, 30));
     r2.addStation(s3, new Time(0, 40));
     r3.addStation(s4, new Time(0, 30));
@@ -83,7 +83,7 @@ export function AddData() {
     r8.addStation(s1, new Time(0, 60));
     r8.addStation(s2, new Time(0, 40));
     r8.addStation(s5, new Time(0, 10));
-
+    */
 
     r1.addItem("cheese fries", 60, 8);
     r1.addItem("veggie potato burger", 60, 0);

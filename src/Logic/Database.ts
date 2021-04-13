@@ -19,8 +19,9 @@ import TrainsData from "./data/Trains.json";
 import AgentData from "./data/Agents.json";
 
 
-// const fs = require("fs");
-// const CircularJSON = require('circular-json');
+const fs = require("fs");
+const CircularJSON = require('circular-json');
+
 
 export class Database{
     static instance: Database|null = null;
@@ -37,11 +38,12 @@ export class Database{
 
     static async writeState() {
         try {
-            // fs.writeFile("./data/Customers.json", JSON.stringify(Management.Customers), function (){})
-            // fs.writeFile("./data/Restaurants.json", JSON.stringify(Management.Application), function (){})
-            // fs.writeFile("./data/Stations.json", JSON.stringify(Management.stationList), function (){})
-            // fs.writeFile("./data/Trains.json", JSON.stringify(Management.trainList), function (){})
-            // await writeJsonFile('./data/Customers.json', JSON.stringify(Management.Customers));
+            var FileSaver = require('file-saver');
+            FileSaver.saveFile("./data/Customers.json", JSON.stringify(Management.Customers), function (){})
+            FileSaver.writeFile("./data/Restaurants.json", JSON.stringify(Management.Application), function (){})
+            FileSaver.writeFile("./data/Stations.json", JSON.stringify(Management.stationList), function (){})
+            FileSaver.writeFile("./data/Trains.json", JSON.stringify(Management.trainList), function (){})
+            FileSaver.writeFile('./data/Customers.json', JSON.stringify(Management.Customers));
             console.log(Management.Customers);
         } catch (err) {
             console.error(err)

@@ -151,25 +151,25 @@ export class Order{
         }
         return [this.__selectedItems,this.Order_Status];
     }
-    getOrderStations(Restaurant : Restaurant) : Array<Station>{
-        let list = new Set<Station>();
-        let route = this.__train.Return_RouteStation();
-        let time = this.__train.Return_RouteTime();
-        for (let i of Array.from(route.keys())){
-            if(time.get(i)?.lessThanEqual(Time.getCurrentTime())){
-                for(let k of this.__selectedItems){
-                    let temp = route.get(i);
-                    if(temp)
-                    if(Management.stationList.get(temp)?.getItem().indexOf(k)!=-1 && Restaurant.getPrice(k.name)!=-1){
-                        let temp2 = Management.stationList.get(temp);
-                        if(temp2)
-                        list.add(temp2);
-                    }
-                }
-            }
-        }
-        return Array.from(list);
-    }
+    //getOrderStations(Restaurant : Restaurant) : Array<Station>{
+    //    let list = new Set<Station>();
+    //    let route = this.__train.Return_RouteStation();
+    //    let time = this.__train.Return_RouteTime();
+    //    for (let i of Array.from(route.keys())){
+    //        if(time.get(i)?.lessThanEqual(Time.getCurrentTime())){
+    //            for(let k of this.__selectedItems){
+    //                let temp = route.get(i);
+    //                if(temp)
+    //                if(Management.stationList.get(temp)?.getItem().indexOf(k)!=-1 && Restaurant.getPrice(k.name)!=-1){
+    //                    let temp2 = Management.stationList.get(temp);
+    //                    if(temp2)
+    //                    list.add(temp2);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return Array.from(list);
+    //}
 
 }
 // var c= new Customer("a","B","C","d");

@@ -19,12 +19,13 @@ export class Restaurant extends Account{
     accetanceStatus = ApprovalStatus[0];
     Menu = new Menu();
     certi: Array<Certi> = [];
-    servingStation : Array<number> = [];
+    servingStation : number;
     
-    constructor(name:string,username:string,password:string) {
+    constructor(name:string,username:string,password:string,station:Station) {
         super(name,username,new Date(),AccountType.Restaurant,password);
         Management.Application.push(this);
         //this.__timeToReach = timeToReach;
+        this.servingStation = station.getID();
         Management.loginR.set(username, this);
     }
     getPrice(s : string){
@@ -33,19 +34,15 @@ export class Restaurant extends Account{
     addItem(s : string , price : number, type:number){
         let item = new Item(s, price, type, this.getID());
         this.Menu.addItem(item);
-        for(let i of this.servingStation){
-            let ms=Management.stationList.get(i);
-            if(ms)
-            ms.addItem(item);
-        }
+        let ms=Management.stationList.get(this.servingStation);
+        if(ms)
+        ms.addItem(item);
     }
     removeItem(item:Item){
         this.Menu.removeItem(item);
-        for(let i of this.servingStation){
-            let ms=Management.stationList.get(i);
-            if(ms)
-            ms.removeItem(item);
-        }
+        let ms=Management.stationList.get(this.servingStation);
+        if(ms)
+        ms.removeItem(item);
     }
     provideCerti(file : Certi){
         this.certi.push(file);
@@ -53,7 +50,6 @@ export class Restaurant extends Account{
     AddAgent(agent : Agent){
         this.__agent.push(agent.getID());
         this.__agentStatus.push(AgentStatus[0]);
-        //this.__agentTimeToGetBack.push(0);
         System.active_agent.push(agent);
         agent.addRestaurant(this);
     }
@@ -86,13 +82,20 @@ export class Restaurant extends Account{
             }
         }
     }
-    addStation(Station : Station, time:Time){
-        Station.addRestaurant(this);
-        this.__timeToReach.push(time);
+    //addStation(Station : Station, time:Time){
+    //    Station.addRestaurant(this);
+    //    this.__timeToReach.push(time);
+    //    for(let i of this.Menu.getMenuItems()){
+    //        Station.addItem(i);
+    //    }
+    //    this.servingStation.push(Station.getID());
+    // }
+    addBrand(newuser : string,password : string,Station : Station){
+        let s = new Restaurant(this._name,newuser,password,Station);
         for(let i of this.Menu.getMenuItems()){
-            Station.addItem(i);
+            let type : string = i.type
+            s.addItem(i.name,i.price,(<any>FoodType)[i.type]);
         }
-        this.servingStation.push(Station.getID());
     }
     getOrderDetails(orderId : number){
         for(let i of this.orderlist){
@@ -104,9 +107,10 @@ export class Restaurant extends Account{
     getOrderStations(orderId: number){
         for(let i of this.orderlist){
             if(i.orderId ==orderId){
-                return i.getOrderStations(this);
+                return this.servingStation;
             }
         }
+        return null;
     }
     updateAgentStatus(agent : Agent,status: number){
         let index = this.__agent.indexOf(agent.getID());
@@ -118,7 +122,7 @@ export class Restaurant extends Account{
         let v : Array<Agent> = [];
         for(let x of this.__agentStatus){
             if(x==AgentStatus[0]){
-                let y = Management.agentList.get(this.__agent[i])
+                let y = Management.agentList.get(this.__agent[i]);
                 if(y)
                 v.push(y);
             }
