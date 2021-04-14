@@ -20,18 +20,18 @@ export function AddData(m:Management) {
     let c2 = new Customer("shaswat", "shaswat621", "kgpianboy", "9293945235",  m);
     let c3 = new Customer("abhishek", "gandhi", "baba", "91885665571",  m);
 
-    let t1 = new Train("mumbai rajdhani", "12951", new Map<string, Time>(), new Map<string, number>());
-    let t2 = new Train("Howrah Express", "12833", new Map<string, Time>(), new Map<string, number>());
+    let t1 = new Train("mumbai rajdhani", "12951", new Map<string, Time>(), new Map<string, number>(),m);
+    let t2 = new Train("Howrah Express", "12833", new Map<string, Time>(), new Map<string, number>(),m);
 
-    let s1 = new Station("Mumbai");
-    let s2 = new Station("Delhi");
-    let s3 = new Station("Kolkata");
-    let s4 = new Station("Raipur");
-    let s5 = new Station("Nagpur");
-    let s6 = new Station("Ahmedabad");
-    let s7 = new Station("Durg");
-    let s8 = new Station("Surat");
-    let s9 = new Station("Kota");
+    let s1 = new Station("Mumbai",m);
+    let s2 = new Station("Delhi",m);
+    let s3 = new Station("Kolkata",m);
+    let s4 = new Station("Raipur",m);
+    let s5 = new Station("Nagpur",m);
+    let s6 = new Station("Ahmedabad",m);
+    let s7 = new Station("Durg",m);
+    let s8 = new Station("Surat",m);
+    let s9 = new Station("Kota",m);
 
     t1.addStation(s1, new Time(7, 53));
     t1.addStation(s2, new Time(8, 35));
@@ -63,13 +63,13 @@ export function AddData(m:Management) {
     m.updateRestarantStatus(r7, 1);
     m.updateRestarantStatus(r8, 1);
 
-    let a1 = new Agent("ramesh", "ramesh", "123", r1,null,null,m);
-    let a2 = new Agent("ramu", "ramu", "123", r2,null,null,m);
-    let a3 = new Agent("mahesh", "mahesh", "123", r3,null,null,m);
-    let a4 = new Agent("ganesh", "ganesh", "123", r4,null,null,m);
-    let a5 = new Agent("sham", "sham", "123", r5,null,null,m);
-    let a6 = new Agent("shamu", "shamu", "123", r6,null,null,m);
-    let a7 = new Agent("lalit", "lalu", "123", r7,null,null,m);
+    let a1 = new Agent("ramesh", "ramesh", "123", r1,m);
+    let a2 = new Agent("ramu", "ramu", "123", r2,m);
+    let a3 = new Agent("mahesh", "mahesh", "123", r3,m);
+    let a4 = new Agent("ganesh", "ganesh", "123", r4,m);
+    let a5 = new Agent("sham", "sham", "123", r5,m);
+    let a6 = new Agent("shamu", "shamu", "123", r6,m);
+    let a7 = new Agent("lalit", "lalu", "123", r7,m);
 
     /*r1.addStation(s1, new Time(0, 30));
     r2.addStation(s2, new Time(0, 30));
@@ -130,7 +130,7 @@ export function AddData(m:Management) {
 
     console.log(r1);
 
-    let order1 = new Order(c1,0,r1.Menu.getMenuItems(),"1",t1.getID(),null);
+    let order1 = new Order(c1,0,r1.Menu.getMenuItems(),"1",t1.getID(),m,null);
     order1.updateOrderStatus(1);
     // Database.writeState();
 }

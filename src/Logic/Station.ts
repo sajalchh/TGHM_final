@@ -10,15 +10,15 @@ export class Station{
     private __ID : number;
     deliveredCount : number = 0;
     failedCount : number = 0;
-    constructor(name:string,ID:number = -1){
+    constructor(name:string,m:Management,ID:number = -1){
         this.name = name;
         if(ID==-1)
             this.__ID  = Account.unique++;
         else
             this.__ID  = ID;
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         m.stationList.set(this.__ID,(this));
-        Management.stationListForStoring.push(this);
+        //Management.stationListForStoring.push(this);
     }
     addRestaurant(restaurant:Restaurant){
         this.__restaurant.push(restaurant.getID());
@@ -39,8 +39,8 @@ export class Station{
     getID(){
         return this.__ID;
     }
-    static ReadStation(station:Station){
-        let x=new Station(station["name"]);
+    static ReadStation(station:Station,m:Management){
+        let x=new Station(station["name"],m);
         x.__restaurant=station["__restaurant"];
         x.__ID=station["__ID"];
         x.deliveredCount= station["deliveredCount"];

@@ -101,10 +101,10 @@ export class Restaurant extends Account{
             s.addItem(i.name,i.price,(<any>FoodType)[i.type],m);
         }
     }
-    getOrderDetails(orderId : number){
+    getOrderDetails(orderId : number,m:Management){
         for(let i of this.orderlist){
             if(i.orderId ==orderId){
-                return i.getItemList(this);
+                return i.getItemList(this,m);
             }
         }
     }

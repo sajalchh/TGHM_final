@@ -9,7 +9,7 @@ export class Train{
     routeTime:Map<string, Time>;
     routeStation:Map<string,number>;
     private __Id : number;
-    constructor(name:string,TrainNo:string,route:Map<string, Time>,routeStation:Map<string, number>,ID:number = -1){
+    constructor(name:string,TrainNo:string,route:Map<string, Time>,routeStation:Map<string, number>,m:Management,ID:number = -1){
         this.Name=name;
         this.routeTime = new Map(route);
         this.routeStation = new Map(routeStation);
@@ -18,10 +18,10 @@ export class Train{
             this.__Id  = Account.unique++;
         else
             this.__Id  = ID;   
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         m.trainList.set(this.__Id,(this));
         m.trainNo.set(TrainNo,this);
-        Management.trainListForStoring.push(this);
+        //Management.trainListForStoring.push(this);
     }
     addStation(station:Station, time : Time){
         this.routeTime.set(station.name,time);
@@ -37,12 +37,12 @@ export class Train{
     getID(){
         return this.__Id;
     }
-    static readTrain(train : Train){
-        let x = new Train(train["Name"], train["TrainNo"],new Map<string, Time>(), new Map<string, number>());
+    static readTrain(train : Train,m:Management){
+        let x = new Train(train["Name"], train["TrainNo"],new Map<string, Time>(), new Map<string, number>(),m);
         let i = 0;
         x.__Id = train["__Id"];
         for(let k of Object.keys( train["routeTime"])){
-            let m = Management.getInstance();
+            //let m = Management.getInstance();
             x.addStation(m.stationList.get(train["routeStation"].get(k)!)!,Object.setPrototypeOf(train["routeTime"].get(k), Time.prototype));
         }
     }

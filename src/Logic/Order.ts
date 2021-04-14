@@ -20,7 +20,7 @@ export class Order{
     private __Restaurants = new Set<Restaurant>();
     __OrderTime : Time;
     orderId;
-    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:number, delivery_station:number|null = null){
+    constructor(customer:Customer,status:number=0,items:Array<Item>,seat_Number:string,train:number,m:Management, delivery_station:number|null = null){
         this.__customer=customer;
         customer.addOrder(this);
         this.__seatNumber=seat_Number;
@@ -33,7 +33,7 @@ export class Order{
         this.__OrderTime = Time.getCurrentTime();
         this.orderId = Order.unique++;
         customer.addOrder(this);
-        let m = Management.getInstance();
+       // let m = Management.getInstance();
         for(let i of items){
             let x  = m.ApprovedRestaurants.get(i.restaurant);
             if(x)
@@ -49,9 +49,9 @@ export class Order{
         this.__agent.push(Agent);
     }
 
-    addItem(Item : Item){
+    addItem(Item : Item,m:Management){
         this.__selectedItems.push(Item);
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         let ar=m.ApprovedRestaurants.get(Item.restaurant);
         if(ar){
         this.__Restaurants.add(ar);
@@ -135,10 +135,10 @@ export class Order{
         return this.orderId;
     }
 
-    getItemList(Restaurant : Restaurant) : Array<Item>{
+    getItemList(Restaurant : Restaurant,m:Management) : Array<Item>{
         let x = [];
         for(let i of this.__selectedItems){
-            let m = Management.getInstance();
+            //let m = Management.getInstance();
             if(m.ApprovedRestaurants.get(i.restaurant)==Restaurant){
                 x.push(i);
             }
@@ -176,10 +176,10 @@ export class Order{
     //    }
     //    return Array.from(list);
     //}
-    static readOrder(order : Order,customer : Customer){
-        let x = new Order(customer,0,new Array<Item>(),order["__seatNumber"],order["__train"]);
+    static readOrder(order : Order,customer : Customer,m:Management){
+        let x = new Order(customer,0,new Array<Item>(),order["__seatNumber"],order["__train"],m);
         for(let i of order["__selectedItems"])
-            x.addItem(Object.setPrototypeOf(i, Item.prototype));
+            x.addItem(Object.setPrototypeOf(i, Item.prototype),m);
             x.__OrderTime = Object.setPrototypeOf(order["__OrderTime"], Time.prototype);
             x.Order_Status = order["Order_Status"];
             x.__agent = order["__agent"];
