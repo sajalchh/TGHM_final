@@ -19,8 +19,8 @@ import TrainsData from "./data/Trains.json";
 import AgentData from "./data/Agents.json";
 
 
-const fs = require("fs");
-const CircularJSON = require('circular-json');
+// const fs = require("fs");
+// const CircularJSON = require('circular-json');
 
 
 export class Database{
@@ -36,26 +36,26 @@ export class Database{
         return this.instance;
     }
 
-    static async writeState() {
-        try {
-            var FileSaver = require('file-saver');
-            FileSaver.saveFile("./data/Customers.json", JSON.stringify(Management.Customers), function (){})
-            FileSaver.writeFile("./data/Restaurants.json", JSON.stringify(Management.Application), function (){})
-            FileSaver.writeFile("./data/Stations.json", JSON.stringify(Management.stationList), function (){})
-            FileSaver.writeFile("./data/Trains.json", JSON.stringify(Management.trainList), function (){})
-            FileSaver.writeFile('./data/Customers.json', JSON.stringify(Management.Customers));
-            console.log(Management.Customers);
-        } catch (err) {
-            console.error(err)
-        }
-    }
+    // static async writeState() {
+    //     try {
+    //         var FileSaver = require('file-saver');
+    //         FileSaver.saveFile("./data/Customers.json", JSON.stringify(Management.getInstance().Customers), function (){})
+    //         FileSaver.writeFile("./data/Restaurants.json", JSON.stringify(Management.getInstance().Application), function (){})
+    //         FileSaver.writeFile("./data/Stations.json", JSON.stringify(Management.stationList), function (){})
+    //         FileSaver.writeFile("./data/Trains.json", JSON.stringify(Management.trainList), function (){})
+    //         FileSaver.writeFile('./data/Customers.json', JSON.stringify(Management.Customers));
+    //         console.log(Management.Customers);
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
 
 
     static readState(){
         try {
             
             }
-    } catch (err) {
+    catch (err) {
     console.error(err)
             return false
         }
@@ -160,7 +160,7 @@ export class Database{
             let rs=rStation.get(stat);
             // console.log(rs);
             if(rs){
-                let ms=Management.stationList.get(rs);
+                let ms=Management.getInstance().stationList.get(rs);
                 console.log(typeof ms);
                 if(ms){
                     console.log(ms.getID());
@@ -196,7 +196,7 @@ export class Database{
             i++;
         }
         console.log(items);
-        console.log(final);
+        // console.log(final);
         return [final,final2];
     }
     getRestaurant(username:string) : Restaurant|null{
