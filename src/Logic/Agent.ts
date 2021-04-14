@@ -71,6 +71,7 @@ export class Agent extends Account{
             x.deliveredCount=agent["deliveredCount"];
             x.failedCount=agent["failedCount"];
             x._ID=agent["_ID"];
+            return x;
         }
     }
 }
