@@ -60,4 +60,17 @@ export class Agent extends Account{
         if(r)
             r.updateAgentStatus(this,status);
     }
+    static ReadAgent(agent:Agent){
+        let y=Management.ApprovedRestaurants.get(agent["restaurant"]);
+        if(y){
+            let x=new Agent(agent["_name"],agent["_username"],agent["_password"],y);
+            let z = agent["__location"];
+            if(z)
+            x.__location= new Location(z["x"],z["y"],z["LandMark"])
+            x.IsFree = agent["IsFree"];
+            x.deliveredCount=agent["deliveredCount"];
+            x.failedCount=agent["failedCount"];
+            x._ID=agent["_ID"];
+        }
+    }
 }

@@ -130,5 +130,19 @@ export class Restaurant extends Account{
         }
         return v;
     }
+    static ReadRestaurant(restaurant:Restaurant){
+        let y = Management.stationList.get(restaurant["servingStation"]);
+        if(y){
+            let x=new Restaurant(restaurant["_name"],restaurant["_username"],restaurant["_password"],y)
+            x.__agent=restaurant["__agent"];
+            x.__agentStatus=restaurant["__agentStatus"];
+            x._ID=restaurant["_ID"];
+            for(let i of restaurant["__timeToReach"]){
+                x.__timeToReach.push(new Time(i["hour"],i["min"],i["day"]));
+            }
+            x.accetanceStatus=restaurant["accetanceStatus"];
+            // for(let i of restaurant["Menu"].)
+        }
+    }
 
 }
