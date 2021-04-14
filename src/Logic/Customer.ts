@@ -11,7 +11,7 @@ export class Customer extends Account{
     private __Orders : Array<Order> = [];
     private __allotedAgent : Agent | undefined;
     private __phoneNumber : string;
-    constructor(name:string,username : string, password:string, phoneNo : string, ID : number = -1, management:Management){
+    constructor(name:string,username : string, password:string, phoneNo : string, management:Management, ID : number = -1){
         super(name,username,new Date(),AccountType.Customer,password,ID);
         this.__phoneNumber = phoneNo;
         management.loginC.set(this._username, this);

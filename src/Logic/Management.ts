@@ -19,11 +19,11 @@ export class Management extends Account{
     loginA : Map<string, Agent> = new Map<string, Agent>();
     trainNo : Map<string,Train> = new Map<string,Train>();
 
-    static CustomersForStoring :Array<Customer> = new Array<Customer>();
-    static stationListForStoring: Array<Station> = new Array<Station>();
-    static trainListForStoring: Array<Train> = new Array<Train>();
-    static agentListForStoring : Array<Agent> = new Array<Agent>();
-    static restaurantForStoring : Array<Restaurant> = new Array<Restaurant>();
+    //static CustomersForStoring :Array<Customer> = new Array<Customer>();
+    //static stationListForStoring: Array<Station> = new Array<Station>();
+    //static trainListForStoring: Array<Train> = new Array<Train>();
+    //static agentListForStoring : Array<Agent> = new Array<Agent>();
+    //static restaurantForStoring : Array<Restaurant> = new Array<Restaurant>();
 
     private constructor(){
         super("Management","Manager",new Date(),AccountType.Management,"admin");
@@ -57,7 +57,7 @@ export class Management extends Account{
         this.Application.splice(x,1);
         if(status != ApprovalStatus.Rejected){
             this.ApprovedRestaurants.set(Restarant.getID(),(Restarant));
-            Management.restaurantForStoring.push(Restarant);
+            //Management.restaurantForStoring.push(Restarant);
         }
     }
 }

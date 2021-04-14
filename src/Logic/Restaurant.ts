@@ -21,9 +21,9 @@ export class Restaurant extends Account{
     certi: Array<Certi> = [];
     servingStation : number;
     
-    constructor(name:string,username:string,password:string,station:Station,timeToReach : Time,ID:number = -1) {
+    constructor(name:string,username:string,password:string,station:Station,timeToReach : Time, m:Management,ID:number = -1) {
         super(name,username,new Date(),AccountType.Restaurant,password,ID);
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         m.Application.push(this);
         this.__timeToReach = timeToReach;
         this.servingStation = station.getID();
@@ -32,17 +32,17 @@ export class Restaurant extends Account{
     getPrice(s : string){
         return this.Menu.getPrice(s);
     }
-    addItem(s : string , price : number, type:number){
+    addItem(s : string , price : number, type:number, m:Management){
         let item = new Item(s, price, type, this.getID());
         this.Menu.addItem(item);
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         let ms=m.stationList.get(this.servingStation);
         if(ms)
         ms.addItem(item);
     }
-    removeItem(item:Item){
+    removeItem(item:Item, m:Management){
         this.Menu.removeItem(item);
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         let ms=m.stationList.get(this.servingStation);
         if(ms)
         ms.removeItem(item);
@@ -71,9 +71,9 @@ export class Restaurant extends Account{
     //getClosestAgent(){
     //    return Math.min.apply(Math,this.__agentTimeToGetBack);   
     //}
-    allotAgent(order: Order,agent : Agent,time : number|null = null){
+    allotAgent(order: Order,agent : Agent,time : number|null = null, m:Management){
         let index = this.__agent.indexOf(agent.getID());
-        let m = Management.getInstance();
+        //let m = Management.getInstance();
         let ag=m.agentList.get(this.__agent[index]);
         if(ag)
             ag.updateAllotedOrder(order);
@@ -94,11 +94,11 @@ export class Restaurant extends Account{
     //    }
     //    this.servingStation.push(Station.getID());
     // }
-    addBrand(newuser : string,password : string,Station : Station,time : Time){
-        let s = new Restaurant(this._name,newuser,password,Station,time);
+    addBrand(newuser : string,password : string,Station : Station,time : Time, m:Management){
+        let s = new Restaurant(this._name,newuser,password,Station,time,m);
         for(let i of this.Menu.getMenuItems()){
             let type : string = i.type
-            s.addItem(i.name,i.price,(<any>FoodType)[i.type]);
+            s.addItem(i.name,i.price,(<any>FoodType)[i.type],m);
         }
     }
     getOrderDetails(orderId : number){
@@ -121,12 +121,12 @@ export class Restaurant extends Account{
         this.__agentStatus[index] = AgentStatus[status];
     }
 
-    getFreeAgents() : Array<Agent>{
+    getFreeAgents(m:Management) : Array<Agent>{
         let i=0;
         let v : Array<Agent> = [];
         for(let x of this.__agentStatus){
             if(x==AgentStatus[0]){
-                let m = Management.getInstance();
+                //let m = Management.getInstance();
                 let y = m.agentList.get(this.__agent[i]);
                 if(y)
                 v.push(y);
@@ -135,12 +135,12 @@ export class Restaurant extends Account{
         }
         return v;
     }
-    static ReadRestaurant(restaurant:Restaurant){
-        let m = Management.getInstance();
+    static ReadRestaurant(restaurant:Restaurant, m:Management){
+        //let m = Management.getInstance();
         let y = m.stationList.get(restaurant["servingStation"]);
         if(y){
             let timeToReach = new Time(restaurant["__timeToReach"]["hour"],restaurant["__timeToReach"]["min"],restaurant["__timeToReach"]["day"]);
-            let x=new Restaurant(restaurant["_name"],restaurant["_username"],restaurant["_password"],y,timeToReach,restaurant["_ID"])
+            let x=new Restaurant(restaurant["_name"],restaurant["_username"],restaurant["_password"],y,timeToReach,m,restaurant["_ID"])
             x.__agent=restaurant["__agent"];
             x.__agentStatus=restaurant["__agentStatus"];
             //x._ID=restaurant["_ID"];
@@ -148,7 +148,7 @@ export class Restaurant extends Account{
             //}
             x.accetanceStatus=restaurant["accetanceStatus"];
             for(let i of restaurant["Menu"]["__Items"]){
-                x.addItem(i["name"],i["price"],(<any>FoodType)[i["type"]]);
+                x.addItem(i["name"],i["price"],(<any>FoodType)[i["type"]],m);
             }
         }
     }

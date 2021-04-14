@@ -11,18 +11,18 @@ export class Agent extends Account{
     restaurant : number;
     deliveredCount : number = 0;
     failedCount : number = 0;
-    constructor(name:string,username:string,password:string,restaurant: Restaurant, location:Location|null = null, allottedOrder: Order|null = null,ID:number = -1){
+    constructor(name:string,username:string,password:string,restaurant: Restaurant, location:Location|null = null, allottedOrder: Order|null = null,management : Management,ID:number = -1){
         super(name,username,new Date(),AccountType.Agent,password,ID);
         this.__location = location;
         this.__allottedorder = allottedOrder;
         this.restaurant = restaurant.getID();
         this.IsFree = AgentStatus[0];
-        let m = Management.getInstance();
-        m.agentList.set(this.getID(), this);
-        Management.agentListForStoring.push(this);
+        //let m = m.getInstance();
+        management.agentList.set(this.getID(), this);
+        //Management.agentListForStoring.push(this);
         if(ID==-1)
             restaurant.AddAgent(this);
-        Management.loginA.set(username, this);
+        management.loginA.set(username, this);
     }
 
     addRestaurant(restaurant : Restaurant){
@@ -45,8 +45,8 @@ export class Agent extends Account{
         return this.__allottedorder;
     }
 
-    updateOrderStatus(Status : number){
-        let m = Management.getInstance();
+    updateOrderStatus(Status : number,m:Management){
+        //let m = Management.getInstance();
         if (this.__allottedorder) {
             let ar=m.ApprovedRestaurants.get(this.restaurant);
             if(ar){
@@ -58,16 +58,16 @@ export class Agent extends Account{
             }
         }
     }
-    updateStatus(status: number){
-        let m = Management.getInstance();
+    updateStatus(status: number,m:Management){
+        //let m = Management.getInstance();
         let r = m.ApprovedRestaurants.get(this.restaurant);
         if(r)
             r.updateAgentStatus(this,status);
     }
-    static ReadAgent(agent:Agent){
-        let y=Management.getInstance().ApprovedRestaurants.get(agent["restaurant"]);
+    static ReadAgent(agent:Agent,m:Management){
+        let y=m.ApprovedRestaurants.get(agent["restaurant"]);
         if(y){
-            let x=new Agent(agent["_name"],agent["_username"],agent["_password"],y,null,null,agent["_ID"]);
+            let x=new Agent(agent["_name"],agent["_username"],agent["_password"],y,null,null,m,agent["_ID"]);
             let z = agent["__location"];
             if(z)
                 x.__location= new Location(z["x"],z["y"],z["LandMark"])
