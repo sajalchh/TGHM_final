@@ -15,7 +15,6 @@ export default function MasterRouter({manageHook}){
         return token ? restrictedComponent : redirectComponent;
     }
 
-    console.log(Management.Customers);
     const timeout = { enter: 800, exit: 400 };
     return(
         <div className="master-router-wrapper">

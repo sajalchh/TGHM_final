@@ -11,13 +11,13 @@ export class Customer extends Account{
     private __Orders : Array<Order> = [];
     private __allotedAgent : Agent | undefined;
     private __phoneNumber : string;
-    constructor(name:string,username : string, password:string, phoneNo : string, ID : number = -1){
+    constructor(name:string,username : string, password:string, phoneNo : string, ID : number = -1, management:Management){
         super(name,username,new Date(),AccountType.Customer,password,ID);
         this.__phoneNumber = phoneNo;
-        Management.loginC.set(this._username, this);
-        let m = Management.getInstance();
-        m.Customers.set(this.getID(),(this));
-        Management.CustomersForStoring.push(this);
+        management.loginC.set(this._username, this);
+        // let m = Management.getInstance();
+        management.Customers.set(this.getID(),(this));
+        // management.CustomersForStoring.push(this);
     }
     addOrder(Order:Order) : void{
         this.__Orders.push(Order);
@@ -62,13 +62,13 @@ export class Customer extends Account{
     getOrderList() : Array<Order>{
         return this.__Orders;
     }
-    static ReadCustomer(customer : Customer){
-        let x = new Customer(customer["_name"],customer["_username"],customer["_password"],customer["__phoneNumber"]);
-        x.__Train = customer["__Train"];
-        x.__seatNO = customer["__seatNO"];
-        x.__allotedAgent = customer["__allotedAgent"];
-        x._ID = customer["_ID"];
-        for(let i of x.__Orders)
-            Order.readOrder(i,x);
-    }
+    // static ReadCustomer(customer : Customer){
+    //     let x = new Customer(customer["_name"],customer["_username"],customer["_password"],customer["__phoneNumber"]);
+    //     x.__Train = customer["__Train"];
+    //     x.__seatNO = customer["__seatNO"];
+    //     x.__allotedAgent = customer["__allotedAgent"];
+    //     x._ID = customer["_ID"];
+    //     for(let i of x.__Orders)
+    //         Order.readOrder(i,x);
+    // }
 }

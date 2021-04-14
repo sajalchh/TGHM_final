@@ -105,19 +105,19 @@ export class Database{
         }
     }
 */
-    static AuthenticateUser(username:string, password:string): string|null{
-        let l = Management.loginC.get(username);
+    static AuthenticateUser(username:string, password:string, management:Management): string|null{
+        let l = management.loginC.get(username);
         console.log(l);
         if (l !== undefined){
             if (l.checkPassword(password)) return l.getUsername();
         }
-        let r = Management.loginR.get(username);
-        console.log(Management.loginR);
+        let r = management.loginR.get(username);
+        console.log(management.loginR);
         console.log(r);
         if (r !== undefined){
             if (r.checkPassword(password)) return r.getUsername();
         }
-        let a = Management.loginA.get(username);
+        let a = management.loginA.get(username);
         if (a !== undefined){
             if (a.checkPassword(password)) return a.getUsername();
         }

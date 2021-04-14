@@ -12,10 +12,17 @@ export default function PassengerForm({manageHook}){
     }
 
     const handleSubmit = (values) => {
-        let c = new Customer(values.firstName + " " + values.lastName, values.username, values.password, values.phoneNo);
-        // manageHook.setManagement(Management.getInstance());
-        Management.Customers.set(c.getUsername(), c);
-        console.log(Management.Customers);
+        let l = manageHook.management;
+        let c = new Customer(values.firstName + " " + values.lastName, values.username, values.password, values.phoneNo, -1,  l);
+        // l.loginC.add(c);
+        // manageHook.management.loginC.set(this._username, this);
+        // let m = Management.getInstance();
+        // m.Customers.set(this.getID(),(this));
+        // Management.CustomersForStoring.push(this);
+        console.log(manageHook.management.Customers);
+        manageHook.setManagement(l);
+        // Management.Customers.set(c.getUsername(), c);
+        // console.log(manageHook.management.Customers);
         // console.log(c);
         // console.log(Management.Customers);
         message.success("User Created");

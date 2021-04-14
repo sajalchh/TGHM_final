@@ -27,7 +27,7 @@ export class Restaurant extends Account{
         m.Application.push(this);
         //this.__timeToReach = timeToReach;
         this.servingStation = station.getID();
-        Management.loginR.set(username, this);
+        m.loginR.set(username, this);
     }
     getPrice(s : string){
         return this.Menu.getPrice(s);

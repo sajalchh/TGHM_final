@@ -21,7 +21,7 @@ export class Agent extends Account{
         m.agentList.set(this.getID(), this);
         Management.agentListForStoring.push(this);
         restaurant.AddAgent(this);
-        Management.loginA.set(username, this);
+        m.loginA.set(username, this);
     }
 
     addRestaurant(restaurant : Restaurant){

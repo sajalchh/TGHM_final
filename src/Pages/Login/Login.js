@@ -21,7 +21,7 @@ import Bg5 from "../../Img/bg5.png";
 // }
 
 
-async function loginUser(credentials){
+async function loginUser(credentials, management){
     // return fetch('http://localhost:8080/login', {
     //     method: 'POST',
     //     headers: {
@@ -36,7 +36,7 @@ async function loginUser(credentials){
     //     };
     // }
     console.log(credentials.username);
-    let isAuthenticID = Database.AuthenticateUser(credentials.username, credentials.password);
+    let isAuthenticID = Database.AuthenticateUser(credentials.username, credentials.password, management);
     console.log(isAuthenticID);
     if (isAuthenticID){
         return{
@@ -63,7 +63,7 @@ export default function Login({setToken, manageHook}){
         const token = await loginUser({
           'username': username,
           'password': password
-        });
+        }, manageHook.management);
         console.log(`Username: ${username} , Password: ${password}`);
         setToken(token.token);
       }

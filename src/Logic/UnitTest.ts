@@ -16,9 +16,9 @@ import { Train } from "./Train"
 import { Time } from "./Time"
 
 let m = Management.getInstance();
-let c1 = new Customer("sajal", "sajalchh", "hello", "9293945535");
-let c2 = new Customer("shaswat", "shaswat621", "kgpianboy", "9293945235");
-let c3 = new Customer("abhishek", "gandhi", "baba", "91885665571")
+let c1 = new Customer("sajal", "sajalchh", "hello", "9293945535", -1, m);
+let c2 = new Customer("shaswat", "shaswat621", "kgpianboy", "9293945235", -1, m);
+let c3 = new Customer("abhishek", "gandhi", "baba", "91885665571", -1, m);
 
 let t1 = new Train("mumbai rajdhani", "12951", new Map<string, Time>(), new Map<string, number>());
 let t2 = new Train("Howrah Express", "12833", new Map<string, Time>(), new Map<string, number>());

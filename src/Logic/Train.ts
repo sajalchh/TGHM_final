@@ -20,7 +20,7 @@ export class Train{
             this.__Id  = ID;   
         let m = Management.getInstance();
         m.trainList.set(this.__Id,(this));
-        Management.trainNo.set(TrainNo,this);
+        m.trainNo.set(TrainNo,this);
         Management.trainListForStoring.push(this);
     }
     addStation(station:Station, time : Time){
