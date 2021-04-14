@@ -11,11 +11,12 @@ export class Customer extends Account{
     private __Orders : Array<Order> = [];
     private __allotedAgent : Agent | undefined;
     private __phoneNumber : string;
-    constructor(name:string,username : string, password:string, phoneNo : string){
-        super(name,username,new Date(),AccountType.Customer,password);
+    constructor(name:string,username : string, password:string, phoneNo : string, ID : number = -1){
+        super(name,username,new Date(),AccountType.Customer,password,ID);
         this.__phoneNumber = phoneNo;
         Management.loginC.set(this._username, this);
-        Management.Customers.set(this.getID(),(this));
+        let m = Management.getInstance();
+        m.Customers.set(this.getID(),(this));
         Management.CustomersForStoring.push(this);
     }
     addOrder(Order:Order) : void{

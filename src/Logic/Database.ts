@@ -51,35 +51,17 @@ export class Database{
     }
 
 
-    // static readState(){
-    //     try {
-    //         let arrCust = CustomerData;
-    //         for (let i=0;i<arrCust.length;i++){
-    //             Management.Customers.push(Object.setPrototypeOf(arrCust[i], Customer.prototype));
-    //             Management.loginC.set(arrCust[i]._username, Object.setPrototypeOf(arrCust[i], Customer.prototype))
-    //         }
-    //         let arrRest = RestaurantData;
-    //         console.log(RestaurantData);
-    //         for (let i=0;i<arrRest.length;i++){
-    //             Management.Application.push(Object.setPrototypeOf(arrRest[i], Restaurant.prototype));
-    //             Management.loginR.set(arrRest[i]._username, Object.setPrototypeOf(arrRest[i], Restaurant.prototype))
-    //         }
-    //         console.log(Management.loginR);
-    //         let arrStation = StationsData;
-    //         for (let i=0;i<arrStation.length;i++){
-    //             Management.stationList.push(Object.setPrototypeOf(arrStation[i], Station.prototype));
-    //         }
-    //         let arrTrain = TrainsData;
-    //         for (let i=0;i<arrTrain.length;i++){
-    //             Management.trainList.push(Object.setPrototypeOf(arrTrain[i], Train.prototype));
-    //         }
-    //     } catch (err) {
-    //         console.error(err)
-    //         return false
-    //     }
-    // }
+    static readState(){
+        try {
+            
+            }
+    } catch (err) {
+    console.error(err)
+            return false
+        }
+    }
 
-
+/*
     static readState(){
         try {
             let arrCust = CustomerData;
@@ -122,7 +104,7 @@ export class Database{
             return false
         }
     }
-
+*/
     static AuthenticateUser(username:string, password:string): string|null{
         let l = Management.loginC.get(username);
         console.log(l);

@@ -33,8 +33,9 @@ export class Order{
         this.__OrderTime = Time.getCurrentTime();
         this.orderId = Order.unique++;
         customer.addOrder(this);
+        let m = Management.getInstance();
         for(let i of items){
-            let x  = Management.ApprovedRestaurants.get(i.restaurant);
+            let x  = m.ApprovedRestaurants.get(i.restaurant);
             if(x)
             this.__Restaurants.add(x);
         }
@@ -50,7 +51,8 @@ export class Order{
 
     addItem(Item : Item){
         this.__selectedItems.push(Item);
-        let ar=Management.ApprovedRestaurants.get(Item.restaurant);
+        let m = Management.getInstance();
+        let ar=m.ApprovedRestaurants.get(Item.restaurant);
         if(ar){
         this.__Restaurants.add(ar);
         }
@@ -136,7 +138,8 @@ export class Order{
     getItemList(Restaurant : Restaurant) : Array<Item>{
         let x = [];
         for(let i of this.__selectedItems){
-            if(Management.ApprovedRestaurants.get(i.restaurant)==Restaurant){
+            let m = Management.getInstance();
+            if(m.ApprovedRestaurants.get(i.restaurant)==Restaurant){
                 x.push(i);
             }
         }
