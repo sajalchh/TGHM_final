@@ -50,13 +50,32 @@ export class Database{
     //     }
     // }
 
-
     static readState(){
         try {
-            
+            let s = sessionStorage.setItem('management', JSON.stringify(Management));
+            let m = Object.setPrototypeOf(s, Management.prototype);
+            for(let k of Object.keys(m["stationlist"])){
+                //Station.
             }
-    catch (err) {
-    console.error(err)
+            for(let k of Object.keys(m["trainList"])){
+                Train.readTrain(m["trainList"][k]);
+            }
+            for(let k of Object.keys(m["ApprovedRestaurants"])){
+
+            }
+            for(let k of Object.keys(m["Application"])){
+                
+            }
+            for(let k of Object.keys(m["agentList"])){
+                
+            }
+            for(let k of Object.keys(m["Customer"])){
+                
+            }
+
+        }
+        catch (err) {
+            console.error(err)
             return false
         }
     }

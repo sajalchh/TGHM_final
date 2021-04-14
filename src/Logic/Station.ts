@@ -39,4 +39,14 @@ export class Station{
     getID(){
         return this.__ID;
     }
+    static ReadStation(station:Station){
+        let x=new Station(station["name"]);
+        x.__restaurant=station["__restaurant"];
+        x.__ID=station["__ID"];
+        x.deliveredCount= station["deliveredCount"];
+        x.failedCount= station["failedCount"];
+        // for (let i = station["__food"].values(), val= null; val=i.next().value; ) {
+        //     x.__food.add(new Item(i["name"],i["price"],i["type"],i["restaurant"]))
+        // }
+    }
 }

@@ -20,8 +20,9 @@ export class Agent extends Account{
         let m = Management.getInstance();
         m.agentList.set(this.getID(), this);
         Management.agentListForStoring.push(this);
-        restaurant.AddAgent(this);
-        m.loginA.set(username, this);
+        if(ID==-1)
+            restaurant.AddAgent(this);
+        Management.loginA.set(username, this);
     }
 
     addRestaurant(restaurant : Restaurant){
@@ -62,5 +63,19 @@ export class Agent extends Account{
         let r = m.ApprovedRestaurants.get(this.restaurant);
         if(r)
             r.updateAgentStatus(this,status);
+    }
+    static ReadAgent(agent:Agent){
+        let y=Management.getInstance().ApprovedRestaurants.get(agent["restaurant"]);
+        if(y){
+            let x=new Agent(agent["_name"],agent["_username"],agent["_password"],y,null,null,agent["_ID"]);
+            let z = agent["__location"];
+            if(z)
+                x.__location= new Location(z["x"],z["y"],z["LandMark"])
+            x.IsFree = agent["IsFree"];
+            x.deliveredCount=agent["deliveredCount"];
+            x.failedCount=agent["failedCount"];
+            //x._ID=agent["_ID"];
+            return x;
+        }
     }
 }
