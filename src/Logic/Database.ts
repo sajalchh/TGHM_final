@@ -58,7 +58,7 @@ export class Database{
                 //Station.
             }
             for(let k of Object.keys(m["trainList"])){
-                Train.readTrain(m["trainList"][k]);
+                //Train.readTrain(m["trainList"][k]);
             }
             for(let k of Object.keys(m["ApprovedRestaurants"])){
 
