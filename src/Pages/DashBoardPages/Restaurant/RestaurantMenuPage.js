@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row, List, Col} from "antd";
 import styled from "styled-components";
+import RestaurantMenuForm from "../../Registration/RestaurantMenuForm";
 
 export default function RestaurantOrderPage(props){
 
@@ -29,6 +30,13 @@ export default function RestaurantOrderPage(props){
                   </List.Item>
               )}
             />
+            <Row>
+                <Col span={18}>
+                    <div className="add-items" style={{margin: "3rem"}}>
+                        <RestaurantMenuForm />
+                    </div>
+                </Col>
+            </Row>
         </div>
     )
 }

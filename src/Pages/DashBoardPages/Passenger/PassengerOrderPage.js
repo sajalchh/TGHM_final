@@ -17,7 +17,7 @@ export default function PassengerOrderPage(props){
     }
 
     const placeOrder = () => {
-        let order = new Order(props.account, 0, orderItems, seatNo, train.getID(), null);
+        let order = new Order(props.account, 0, orderItems, seatNo, train, null);
         order.updateOrderStatus(1);
         message.success('Order Placed!');
     }
