@@ -2,6 +2,8 @@ import React from 'react';
 import {List, Col, Row} from "antd";
 import {Management} from "../../../Logic/Management";
 import styled from "styled-components";
+import AgentForm from "../../Registration/AgentForm";
+import './Restaurant.css'
 
 export default function RestaurantOrderPage(props){
 
@@ -31,9 +33,9 @@ export default function RestaurantOrderPage(props){
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <div className="add-agent-btn">
-
+                <Col offset={2} span={20}>
+                    <div className="add-agent">
+                        <AgentForm restaurant={props.account}/>
                     </div>
                 </Col>
             </Row>

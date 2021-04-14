@@ -26,7 +26,7 @@ export default function ManagementHomePage(props){
                         icon={<UserOutlined/>}
                     />
                     <Heading>
-                        {props.name}
+                        Management
                     </Heading>
                 </Col>
             </Row>

@@ -157,14 +157,14 @@ function UnitTestingManagement(){
     }
     let r10 = new Restaurant("baba", "baba", "123",s1);
     let r11 = new Restaurant("baba123", "baba", "123",s1);
-    
-    if(Management.Application[0]==r10 && Management.Application[1]==r11){
+    let Manage = Management.getInstance();
+    if(Manage.Application[0]==r10 && Manage.Application[1]==r11){
         console.log("Checking Application Array: Found");
     }
     m.updateRestarantStatus(r10,1);
     m.updateRestarantStatus(r11,2);
     //console.log(Management.Application)
-    if(Management.ApprovedRestaurants.get(r10.getID())==r10 && Management.ApprovedRestaurants.get(r11.getID())==undefined){
+    if(Manage.ApprovedRestaurants.get(r10.getID())==r10 && Manage.ApprovedRestaurants.get(r11.getID())==undefined){
         console.log("updateRestaurantStatus : Working");
     }
     console.log("-------------------------------------------------------------------------------");
@@ -264,7 +264,8 @@ function UnitTestingRestaurants(){
     console.log("adding Item and Adding Station working properly");
     res.allotAgent(order1,a1);
     //console.log(order1.getAgent());
-    if(Management.agentList.get(order1.getAgent()[0])==a1){
+    let Manage = Management.getInstance();
+    if(Manage.agentList.get(order1.getAgent()[0])==a1){
         console.log("agent allotment working properly")
     }
 

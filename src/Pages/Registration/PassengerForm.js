@@ -3,17 +3,22 @@ import {DatePicker, Col, Form, Input, Row, Button, message} from "antd";
 import styled from "styled-components";
 import {Customer} from "../../Logic/Customer";
 import {Database} from "../../Logic/Database";
+import {Management} from "../../Logic/Management";
 
-export default function PassengerForm(){
+export default function PassengerForm({manageHook}){
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed: ',errorInfo);
     }
 
     const handleSubmit = (values) => {
-        let c = new Customer(values.firstName + values.lastName, values.username, values.password, values.phoneNo);
-        console.log(c);
-        message.success("User Created")
+        let c = new Customer(values.firstName + " " + values.lastName, values.username, values.password, values.phoneNo);
+        // manageHook.setManagement(Management.getInstance());
+        Management.Customers.set(c.getUsername(), c);
+        console.log(Management.Customers);
+        // console.log(c);
+        // console.log(Management.Customers);
+        message.success("User Created");
     }
 
     const HeadingStyled = styled.h2`

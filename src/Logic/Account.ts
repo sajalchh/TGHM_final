@@ -8,8 +8,11 @@ export class Account{
     protected _openDate;
     protected _password;
     protected _username;
-    constructor(name:string,username:string,Date:Date,Type:AccountType,Password:string){
-        this._ID = Account.unique++;
+    constructor(name:string,username:string,Date:Date,Type:AccountType,Password:string, ID:number = -1){
+        if(ID==-1)
+            this._ID = Account.unique++;
+        else
+            this._ID = ID;
         this._name = name;
         this._type = Type;
         this._username = username;

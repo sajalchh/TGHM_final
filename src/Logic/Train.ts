@@ -9,13 +9,17 @@ export class Train{
     routeTime:Map<string, Time>;
     routeStation:Map<string,number>;
     private __Id : number;
-    constructor(name:string,TrainNo:string,route:Map<string, Time>,routeStation:Map<string, number>){
+    constructor(name:string,TrainNo:string,route:Map<string, Time>,routeStation:Map<string, number>,ID:number = -1){
         this.Name=name;
         this.routeTime = new Map(route);
         this.routeStation = new Map(routeStation);
         this.TrainNo = TrainNo;
-        this.__Id  = Account.unique++;
-        Management.trainList.set(this.__Id,(this));
+        if(ID==-1)
+            this.__Id  = Account.unique++;
+        else
+            this.__Id  = ID;   
+        let m = Management.getInstance();
+        m.trainList.set(this.__Id,(this));
         Management.trainNo.set(TrainNo,this);
         Management.trainListForStoring.push(this);
     }
@@ -38,7 +42,8 @@ export class Train{
         let i = 0;
         x.__Id = train["__Id"];
         for(let k of Object.keys( train["routeTime"])){
-            x.addStation(Management.stationList.get(train["routeStation"].get(k)!)!,Object.setPrototypeOf(train["routeTime"].get(k), Time.prototype));
+            let m = Management.getInstance();
+            x.addStation(m.stationList.get(train["routeStation"].get(k)!)!,Object.setPrototypeOf(train["routeTime"].get(k), Time.prototype));
         }
     }
 }

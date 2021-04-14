@@ -6,7 +6,7 @@ import Colors from "../../Design/Colors";
 import styled from "styled-components";
 import './Registration.css';
 
-export default function Registration(){
+export default function Registration({manageHook}){
 
     const ColorStyle = {
         white: Colors.white,
@@ -55,7 +55,7 @@ export default function Registration(){
                             <Row style={{width: "100%"}}>
                                 <Col span={18} offset={3}>
                                     <div className="registration-form">
-                                        <RegistrationRouter />
+                                        <RegistrationRouter manageHook={manageHook} />
                                     </div>
                                 </Col>
                             </Row>

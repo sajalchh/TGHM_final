@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
 import {Button, Card, Carousel, Checkbox, Form, Input, Row, Col, Image} from "antd";
@@ -8,7 +8,9 @@ import {Management} from "../../Logic/Management";
 import {Database} from "../../Logic/Database";
 import Bg1 from "../../Img/bg1.png";
 import Bg2 from "../../Img/bg2.png";
+import Bg3 from "../../Img/bg3.png";
 import Bg4 from "../../Img/bg4.png";
+import Bg5 from "../../Img/bg5.png";
 
 // const AgentTest = {
 //     id: 1,
@@ -44,13 +46,27 @@ async function loginUser(credentials){
 }
 
 
-export default function Login({setToken}){
-    const handleSubmit = async (values) => {
+export default function Login({setToken, manageHook}){
+    const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
+
+    // const handleSubmit = async (values) => {
+    //     // values.preventDefault();
+    //     const result = await loginUser({'username': username, 'password': password});
+    //     setToken(result.token);
+    // }
+
+
+    const handleSubmit = async e => {
         // e.preventDefault();
-        const result = await loginUser(values);
-        setToken(result.token, values.remember);
-        window.location.replace('/dashboard');
-    }
+        console.log("Hi");
+        const token = await loginUser({
+          'username': username,
+          'password': password
+        });
+        console.log(`Username: ${username} , Password: ${password}`);
+        setToken(token.token);
+      }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed: ',errorInfo);
@@ -87,45 +103,59 @@ export default function Login({setToken}){
                         <Col style={colStyle} span={16} offset={4}>
                             <div className="login-card-wrapper" style={{backgroundColor: colorStyles.white}}>
                             <Card className="login-card" style={{width: "100%", borderColor: colorStyles.white}}>
-                                <Form
-                                    name="basic"
-                                    initialValues={{
-                                        remember: true,
-                                    }}
-                                    onFinish={handleSubmit}
-                                    onFinishFailed={onFinishFailed}>
-                                        <Form.Item
-                                        label="Username"
-                                        name="username"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Please input your username',
-                                            }
-                                        ]}>
-                                            <Input />
-                                        </Form.Item>
-                                        <Form.Item
-                                        label="Password"
-                                        name="password"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Please input your password',
-                                            }
-                                        ]}
-                                        >
-                                            <Input.Password />
-                                        </Form.Item>
-                                        <Form.Item  name="remember" valuePropName="checked">
-                                            <Checkbox>Remember Me</Checkbox>
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <Button type="primary" htmlType="submit">
-                                                Submit
-                                            </Button>
-                                        </Form.Item>
-                                </Form>
+                                {/*<Form*/}
+                                {/*    name="basic"*/}
+                                {/*    initialValues={{*/}
+                                {/*        remember: true,*/}
+                                {/*    }}*/}
+                                {/*    onFinish={handleSubmit}*/}
+                                {/*    onFinishFailed={onFinishFailed}>*/}
+                                {/*        <Form.Item*/}
+                                {/*        label="Username"*/}
+                                {/*        name="username"*/}
+                                {/*        rules={[*/}
+                                {/*            {*/}
+                                {/*                required: true,*/}
+                                {/*                message: 'Please input your username',*/}
+                                {/*            }*/}
+                                {/*        ]}>*/}
+                                {/*            <Input onChange={e => setUserName(e.target.value)} />*/}
+                                {/*        </Form.Item>*/}
+                                {/*        <Form.Item*/}
+                                {/*        label="Password"*/}
+                                {/*        name="password"*/}
+                                {/*        rules={[*/}
+                                {/*            {*/}
+                                {/*                required: true,*/}
+                                {/*                message: 'Please input your password',*/}
+                                {/*            }*/}
+                                {/*        ]}*/}
+                                {/*        >*/}
+                                {/*            <Input.Password onChange={e => setPassword(e.target.value)} />*/}
+                                {/*        </Form.Item>*/}
+                                {/*        <Form.Item  name="remember" valuePropName="checked">*/}
+                                {/*            <Checkbox>Remember Me</Checkbox>*/}
+                                {/*        </Form.Item>*/}
+                                {/*        <Form.Item>*/}
+                                {/*            <Button type="primary" htmlType="submit">*/}
+                                {/*                Submit*/}
+                                {/*            </Button>*/}
+                                {/*        </Form.Item>*/}
+                                {/*</Form>*/}
+                                <form onSubmit={handleSubmit}>
+                                    <label>
+                                      <p>Username</p>
+                                      <input type="text" onChange={e => setUserName(e.target.value)} />
+                                    </label>
+                                    <label>
+                                      <p>Password</p>
+                                      <input type="password" onChange={e => setPassword(e.target.value)} />
+                                    </label>
+                                    <div>
+                                      <button type="submit">Submit</button>
+                                    </div>
+                                  </form>
+                                {/*<Link to={"/dashboard"}>Go to Next Page</Link>*/}
                                 <Link to={"/registration"}>Sign Up</Link>
                             </Card>
                             </div>
@@ -149,11 +179,9 @@ export default function Login({setToken}){
                     <Image src={Bg1} />
                 </div>
                 <div>
-                    {/*<h3 style = {CarouselStyle}>1</h3>*/}
                     <Image src={Bg2} />
                 </div>
                 <div>
-                    {/*<h3 style = {CarouselStyle}>1</h3>*/}
                     <Image src={Bg4} />
                 </div>
             </Carousel>

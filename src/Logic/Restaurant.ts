@@ -21,9 +21,10 @@ export class Restaurant extends Account{
     certi: Array<Certi> = [];
     servingStation : number;
     
-    constructor(name:string,username:string,password:string,station:Station) {
-        super(name,username,new Date(),AccountType.Restaurant,password);
-        Management.Application.push(this);
+    constructor(name:string,username:string,password:string,station:Station,ID:number = -1) {
+        super(name,username,new Date(),AccountType.Restaurant,password,ID);
+        let m = Management.getInstance();
+        m.Application.push(this);
         //this.__timeToReach = timeToReach;
         this.servingStation = station.getID();
         Management.loginR.set(username, this);
@@ -34,13 +35,15 @@ export class Restaurant extends Account{
     addItem(s : string , price : number, type:number){
         let item = new Item(s, price, type, this.getID());
         this.Menu.addItem(item);
-        let ms=Management.stationList.get(this.servingStation);
+        let m = Management.getInstance();
+        let ms=m.stationList.get(this.servingStation);
         if(ms)
         ms.addItem(item);
     }
     removeItem(item:Item){
         this.Menu.removeItem(item);
-        let ms=Management.stationList.get(this.servingStation);
+        let m = Management.getInstance();
+        let ms=m.stationList.get(this.servingStation);
         if(ms)
         ms.removeItem(item);
     }
@@ -70,7 +73,8 @@ export class Restaurant extends Account{
     //}
     allotAgent(order: Order,agent : Agent,time : number|null = null){
         let index = this.__agent.indexOf(agent.getID());
-        let ag=Management.agentList.get(this.__agent[index]);
+        let m = Management.getInstance();
+        let ag=m.agentList.get(this.__agent[index]);
         if(ag)
             ag.updateAllotedOrder(order);
          
@@ -122,7 +126,8 @@ export class Restaurant extends Account{
         let v : Array<Agent> = [];
         for(let x of this.__agentStatus){
             if(x==AgentStatus[0]){
-                let y = Management.agentList.get(this.__agent[i]);
+                let m = Management.getInstance();
+                let y = m.agentList.get(this.__agent[i]);
                 if(y)
                 v.push(y);
             }
