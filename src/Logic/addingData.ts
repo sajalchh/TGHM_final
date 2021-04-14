@@ -45,14 +45,14 @@ export function AddData() {
     t2.addStation(s6, new Time(10, 5));
     t2.addStation(s7, new Time(22, 10));
 
-    let r1 = new Restaurant("sajal dhaba", "dhaba", "123",s1);
-    let r2 = new Restaurant("club mahindra", "mahindra", "123",s2);
-    let r3 = new Restaurant("dominos", "domi", "123",s3);
-    let r4 = new Restaurant("foodbuz", "food", "123",s4);
-    let r5 = new Restaurant("swastam", "swami", "123",s5);
-    let r6 = new Restaurant("Mio Amore", "mio_me", "123",s6);
-    let r7 = new Restaurant("Arabian Nights", "nights", "123",s7);
-    let r8 = new Restaurant("KFC", "kfc", "123",s8);
+    let r1 = new Restaurant("sajal dhaba", "dhaba", "123",s1,new Time(0,15));
+    let r2 = new Restaurant("club mahindra", "mahindra", "123",s2,new Time(0,15));
+    let r3 = new Restaurant("dominos", "domi", "123",s3,new Time(0,15));
+    let r4 = new Restaurant("foodbuz", "food", "123",s4,new Time(0,15));
+    let r5 = new Restaurant("swastam", "swami", "123",s5,new Time(0,15));
+    let r6 = new Restaurant("Mio Amore", "mio_me", "123",s6,new Time(0,15));
+    let r7 = new Restaurant("Arabian Nights", "nights", "123",s7,new Time(0,15));
+    let r8 = new Restaurant("KFC", "kfc", "123",s8,new Time(0,15));
 
     m.updateRestarantStatus(r1, 1);
     m.updateRestarantStatus(r2, 1);
