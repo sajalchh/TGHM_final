@@ -1,6 +1,9 @@
 # TGHM - Travel in Good Health Management Software
 
 A Food delivery app meant to cater the needs of passengers travelling through trains, built using Node.js, Reactjs and Typescript.
+<p align=center>
+  <img src="https://github.com/sajalchh/TGHM_final/blob/master/frontend_demo.gif" alt="Frontend">
+ </p>
 
 ## About
 
